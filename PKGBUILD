@@ -1,20 +1,26 @@
-# $Id$
-# Maintainer: Thaodan <theodorstormgrade@gmail.com>
-pkgname=zsh-git-prompt
-pkgver=0.5
-pkgrel=1
-pkgdesc="Informative git prompt for zsh"
-arch=('any')
-url="https://github.com/olivierverdier/zsh-git-prompt"
-depends=('zsh' 'python') 
-makedepends=('git')
-license=('MIT')
-source=("https://github.com/olivierverdier/zsh-git-prompt/archive/v$pkgver.tar.gz")
-md5sums=('9e445ef5270cfccce2b907fa29c6af0c')
+# Maintainer: Yurii Kolesnykov <root@yurikoles.com>
+# Contributor: Thaodan <theodorstormgrade@gmail.com>
+#
+# Pull Requests are welcome here: https://github.com/yurikoles-aur/zsh-git-prompt
 
+pkgname=zsh-git-prompt
+pkgver=0.6
+pkgrel=1
+pkgdesc='Informative git prompt for zsh'
+arch=('any')
+url="https://github.com/${pkgname}/${pkgname}"
+license=('LicenseRef-MIT')
+install="${pkgname}.install"
+source=("${pkgname}-v${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('b28a8249797b92b25e3c3156dc99153548a5b0877d2e6aa20be15caa719dcea2')
 
 package() {
-  cd "$srcdir"/$pkgname-$pkgver
-  install -Dm755 gitstatus.py "$pkgdir"/usr/lib/$pkgname/gitstatus.py
-  install -Dm755 zshrc.sh "$pkgdir"/usr/lib/$pkgname/zshrc.sh
+  depends=('zsh' 'python')
+
+  cd "${pkgname}-${pkgver}"
+
+  install -Dm755 zshrc.sh "${pkgdir}/usr/lib/${pkgname}/zshrc.sh"
+  install -Dm755 python/gitstatus.py "${pkgdir}/usr/lib/${pkgname}/python/gitstatus.py"
+  install -Dm755 shell/gitstatus.sh "${pkgdir}/usr/lib/${pkgname}/shell/gitstatus.sh"
+  install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
